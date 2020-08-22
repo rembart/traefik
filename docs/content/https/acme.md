@@ -484,6 +484,34 @@ docker run -v "/my/host/acme:/etc/traefik/acme" traefik
 !!! warning
     For concurrency reasons, this file cannot be shared across multiple instances of Traefik.
 
+### `eab` External account binding
+
+`kid` KeyId
+`hmacEncoded` base64 secret string
+
+```toml tab="File (TOML)"
+[certificatesResolvers.myresolver.acme]
+  # ...
+  [certificatesResolvers.myresolver.acme.eab]
+    kid = "abc-keyID-xyz"
+    hmacEncoded = "abc-hmac-xyz"
+```
+
+```yaml tab="File (YAML)"
+certificatesResolvers:
+  myresolver:
+    acme:
+      # ...
+      eab:
+        kid: abc-keyID-xyz
+        hmacEncoded: abc-hmac-xyz
+```
+
+```bash tab="CLI"
+# ...
+--certificatesresolvers.myresolver.acme.aeb.kid=abc-keyID-xyz --certificatesresolvers.myresolver.acme.aeb.hmacEncoded=abc-hmac-xyz
+```
+
 ## Fallback
 
 If Let's Encrypt is not reachable, the following certificates will apply:
